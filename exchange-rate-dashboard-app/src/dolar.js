@@ -1,6 +1,12 @@
 import axios from 'axios';
 class Dolar {
     const get = () => {
-      return [];
+      return axios.get('', {
+        params: {
+
+        }
+      });
     }
 }
+
+export default Dolar;
