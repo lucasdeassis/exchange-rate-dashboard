@@ -22,6 +22,25 @@
   font-size: large;
 }
 
+.cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.card-currency {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: .25rem;
+  max-width: 320px;
+  margin: 30px;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
