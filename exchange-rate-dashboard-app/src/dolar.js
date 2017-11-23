@@ -1,12 +1,8 @@
-import axios from 'axios';
-class Dolar {
-    const get = () => {
-      return axios.get('', {
-        params: {
-
-        }
-      });
-    }
+const dolar = {
+  get: () => {
+    return fetch('https://api.fixer.io/latest?base=USD&symbols=BRL')
+      .then((response) => response.json());
+  }
 }
 
-export default Dolar;
+export default dolar;

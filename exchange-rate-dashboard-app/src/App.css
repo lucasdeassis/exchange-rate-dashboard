@@ -3,7 +3,7 @@
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
+  /* animation: App-logo-spin infinite 20s linear; */
   height: 80px;
 }
 
@@ -11,6 +11,7 @@
   background-color: #222;
   height: 150px;
   padding: 20px;
+  width: 100%;
   color: white;
 }
 
@@ -20,6 +21,25 @@
 
 .App-intro {
   font-size: large;
+}
+
+.cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.card-currency {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: .25rem;
+  max-width: 320px;
+  margin: 30px;
 }
 
 @keyframes App-logo-spin {
