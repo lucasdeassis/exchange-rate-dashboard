@@ -5,12 +5,25 @@ import './App.css'
 import CardCurrency from './components/card_currency.js'
 import dolar from './dolar.js'
 import euro from './euro.js'
-import { LineChart, Line } from 'recharts'
+import { LineChart, Line,  XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts'
 import tinydate from 'tinydate'
 
-
-
 class App extends Component {
+
+  //TODO: Receber os dados de cada mes e popular no data
+  data = [
+    {name: 'jan', euro: 4000, dolar: 2400},
+    {name: 'fev', euro: 3000, dolar: 1398},
+    {name: 'mar', euro: 2000, dolar: 9800},
+    {name: 'abr', euro: 2780, dolar: 3908},
+    {name: 'mai', euro: 1890, dolar: 4800},
+    {name: 'jun', euro: 2390, dolar: 3800},
+    {name: 'jul', euro: 3490, dolar: 4300},
+    {name: 'ago', euro: 3490, dolar: 4300},
+    {name: 'set', euro: 3490, dolar: 4300},
+    {name: 'out', euro: 3490, dolar: 4300},
+    {name: 'nov', euro: 3490, dolar: 4300},
+  ];
 
   constructor(props) {
     super(props)
@@ -105,9 +118,20 @@ class App extends Component {
           </div>
 
         </div>
-        <LineChart width={400} height={400} data={this.state.euromeses.map( euromes => ({euromes}) )}>
-          <Line type="monotone" dataKey="uv" stroke="#8884d8" />
+
+      <div className="chart">
+        <h2>Historical changes</h2>
+        <LineChart width={700} height={300} data={this.data}>
+          <XAxis dataKey="name"/>
+          <YAxis/>
+          <CartesianGrid strokeDasharray="3 3"/>
+          <Tooltip/>
+          <Legend />
+          <Line type="monotone" dataKey="dolar" stroke="#8884d8" activeDot={{r: 8}}/>
+          <Line type="monotone" dataKey="euro" stroke="#82ca9d" />
         </LineChart>
+      </div>
+
       </div>
 
     )
