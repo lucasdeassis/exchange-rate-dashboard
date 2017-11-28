@@ -17,26 +17,32 @@ class App extends Component {
     this.state = {
       dolar : 0,
       euro : 0,
-      euromeses : [],
       pound : 0,
       data : [
-        {name: 'jan', euro: 0, dolar: 0},
-        {name: 'fev', euro: 0, dolar: 0},
-        {name: 'mar', euro: 0, dolar: 0},
-        {name: 'abr', euro: 0, dolar: 0},
-        {name: 'mai', euro: 0, dolar: 0},
-        {name: 'jun', euro: 0, dolar: 0},
-        {name: 'jul', euro: 0, dolar: 0},
-        {name: 'ago', euro: 0, dolar: 0},
-        {name: 'set', euro: 0, dolar: 0},
-        {name: 'out', euro: 0, dolar: 0},
-        {name: 'nov', euro: 0, dolar: 0},
-      ]
+        {name: 'jan'},
+        {name: 'fev'},
+        {name: 'mar'},
+        {name: 'abr'},
+        {name: 'mai'},
+        {name: 'jun'},
+        {name: 'jul'},
+        {name: 'ago'},
+        {name: 'set'},
+        {name: 'out'},
+        {name: 'nov'},
+      ],
+      dolarDone: false,
+      euroDone: false,
+      poundDone: false
     }
 
   }
 
   componentDidMount() {
+
+  }
+
+  componentWillMount() {
     dolar.get().then( data => {
       this.setState( {
         dolar : data.rates.BRL
@@ -52,29 +58,50 @@ class App extends Component {
         pound: data.rates.BRL
       })
     })
-  }
 
-  componentWillMount() {
     const months = this.initializeMonths()
     let temp = [];
     temp = [...this.state.data];
 
     Promise.all(months.map(month => euro.getMonth(month)))
       .then((euroResponse) => {
-        const euromeses = []
         for (let i = 0; i < euroResponse.length; i++) {
           const { rates } = euroResponse[i];
-          euromeses.push(rates.BRL)
           temp[i].euro = rates.BRL
         }
-        temp[10].euro = this.state.euro;
+        temp[10].euro = this.state.euro
         this.setState({
-          euromeses ,
           data: temp,
+          euroDone: true
         })
-
-        console.log(this.state.data);
       })
+
+      Promise.all(months.map(month => dolar.getMonth(month)))
+      .then((dolarResponse) => {
+        for (let i = 0; i < dolarResponse.length; i++) {
+          const { rates } = dolarResponse[i]
+          temp[i].dolar = rates.BRL
+        }
+        temp[10].dolar = this.state.dolar
+        this.setState({
+          data: temp,
+          dolarDone: true
+        })
+      })
+
+      Promise.all(months.map(month => pound.getMonth(month)))
+      .then((poundResponse) => {
+        for (let i = 0; i < poundResponse.length; i++) {
+          const { rates } = poundResponse[i]
+          temp[i].pound = rates.BRL
+        }
+        temp[10].pound = this.state.pound
+        this.setState({
+          data: temp,
+          poundDone: true
+        })
+      })
+
   }
 
   initializeMonths() {
@@ -91,8 +118,6 @@ class App extends Component {
   }
 
   render() {
-    console.log('euromeses', this.state.euromeses)
-    console.log(this.state.euromeses.map( euromes => ({euromes}) ))
     return (
       <div className="App">
         <header className="App-header">
@@ -136,15 +161,20 @@ class App extends Component {
 
       <div className="chart">
         <h2>Historical changes</h2>
+        { (this.state.dolarDone && this.state.euroDone && this.state.poundDone) ?
         <LineChart width={700} height={300} data={this.state.data}>
           <XAxis dataKey="name"/>
           <YAxis/>
           <CartesianGrid strokeDasharray="3 3"/>
           <Tooltip/>
           <Legend />
-
           <Line type="monotone" dataKey="euro" stroke="#82ca9d" />
+          <Line type="monotone" dataKey="pound" stroke="#880000" />
+          <Line type="monotone" dataKey="dolar" stroke="#0090FF" />
         </LineChart>
+        :
+        <div><h3>Loading...</h3></div>
+        }
       </div>
 
       </div>

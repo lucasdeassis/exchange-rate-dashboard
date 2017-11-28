@@ -4,7 +4,7 @@ const pound = {
       .then((response) => response.json());
   },
   getMonth: (month) => {
-    return fetch('https://api.fixer.io/2017-'+month+'-01?base=EUR&symbols=BRL')
+    return fetch('https://api.fixer.io/2017-'+month+'-01?base=GBP&symbols=BRL')
     .then((response) => response.json());
   }
 }
