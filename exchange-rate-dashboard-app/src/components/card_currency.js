@@ -16,11 +16,11 @@ const CardCurrency = (props) => {
   return (
     <div>
       <Card>
-        <CardImg top src={currencyImgSrc} width="100%" alt="No Image" />
+        <CardImg className="card-img" top src={currencyImgSrc} alt="currency" />
         <CardBody>
-          <CardTitle>{currencyName}</CardTitle>
-          <CardSubtitle>{baseCurrency}</CardSubtitle>
-          <CardText>{value}</CardText>
+          <CardTitle className="card-title">{currencyName}</CardTitle>
+          <CardSubtitle className="card-subtitle">{baseCurrency}</CardSubtitle>
+          <CardText className="card-text">{value}</CardText>
         </CardBody>
       </Card>
     </div>

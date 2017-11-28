@@ -1,18 +1,16 @@
 import React, { Component } from 'react'
-import logo from './business.svg'
 import './App.css'
 
 import CardCurrency from './components/card_currency.js'
-import dolar from './dolar.js'
-import euro from './euro.js'
-import pound from './pound.js';
 import { LineChart, Line,  XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts'
 import tinydate from 'tinydate'
 
+import dolar from './currency/dolar.js'
+import euro from './currency/euro.js'
+import logo from './business.svg'
+import pound from './currency/pound.js';
+
 class App extends Component {
-
-  //TODO: Receber os dados de cada mes e popular no data
-
 
   constructor(props) {
     super(props)
@@ -54,9 +52,13 @@ class App extends Component {
         pound: data.rates.BRL
       })
     })
+  }
+
+  componentWillMount() {
     const months = this.initializeMonths()
     let temp = [];
     temp = [...this.state.data];
+
     Promise.all(months.map(month => euro.getMonth(month)))
       .then((euroResponse) => {
         const euromeses = []
@@ -73,8 +75,7 @@ class App extends Component {
 
         console.log(this.state.data);
       })
-
-    }
+  }
 
   initializeMonths() {
     const stamp = tinydate('{MM}')
@@ -127,7 +128,7 @@ class App extends Component {
               currencyName="British Pound"
               value={'R$ ' + this.state.pound}
               baseCurrency="£ 1.00"
-              currencyImgSrc="http://www.fileformat.info/info/unicode/char/00a3/pound_sign.png">
+              currencyImgSrc="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Pound_Sign.svg/768px-Pound_Sign.svg.png">
             </CardCurrency>
           </div>
 
