@@ -125,58 +125,65 @@ class App extends Component {
           <h1 className="App-title">Exchange Rate Dashboard</h1>
         </header>
         <p className="App-intro">
-        Check the currency value you want to know.
-        Here you can track its value and get notifications about downfall and peaks.
+          Check the currency value you want to know.
+          Here you can track its value and get notifications about downfall and peaks.
         </p>
 
-      <div className="cards">
-        <div className="card-currency">
-          <CardCurrency
-            currencyName="Dolar"
-            value={'R$ ' + this.state.dolar}
-            baseCurrency="$ 1.00"
-            currencyImgSrc="https://www.alt-codes.net/images/dollar-sign.png">
-          </CardCurrency>
-          </div>
-
-          <div className="card-currency">
-            <CardCurrency
-              currencyName="Euro"
-              value={'R$ ' + this.state.euro}
-              baseCurrency="€ 1.00"
-              currencyImgSrc="http://pngimg.com/uploads/euro_sign/euro_sign_PNG21580.png">
-            </CardCurrency>
-          </div>
-
-          <div className="card-currency">
-            <CardCurrency
-              currencyName="British Pound"
-              value={'R$ ' + this.state.pound}
-              baseCurrency="£ 1.00"
-              currencyImgSrc="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Pound_Sign.svg/768px-Pound_Sign.svg.png">
-            </CardCurrency>
-          </div>
-
+        <div className="section-title">
+          Currencies
         </div>
+        <hr className="line"/>
 
-      <div className="chart">
-        <h2>Historical changes</h2>
-        { (this.state.dolarDone && this.state.euroDone && this.state.poundDone) ?
-        <LineChart width={700} height={300} data={this.state.data}>
-          <XAxis dataKey="name"/>
-          <YAxis/>
-          <CartesianGrid strokeDasharray="3 3"/>
-          <Tooltip/>
-          <Legend />
-          <Line type="monotone" dataKey="euro" stroke="#82ca9d" />
-          <Line type="monotone" dataKey="pound" stroke="#880000" />
-          <Line type="monotone" dataKey="dolar" stroke="#0090FF" />
-        </LineChart>
-        :
-        <div><h3>Loading...</h3></div>
-        }
-      </div>
+        <div className="cards">
+          <div className="card-currency">
+            <CardCurrency
+              currencyName="Dollar"
+              value={'R$ ' + this.state.dolar}
+              baseCurrency="$ 1.00"
+              currencyImgSrc="https://www.alt-codes.net/images/dollar-sign.png">
+            </CardCurrency>
+            </div>
 
+            <div className="card-currency">
+              <CardCurrency
+                currencyName="Euro"
+                value={'R$ ' + this.state.euro}
+                baseCurrency="€ 1.00"
+                currencyImgSrc="http://pngimg.com/uploads/euro_sign/euro_sign_PNG21580.png">
+              </CardCurrency>
+            </div>
+
+            <div className="card-currency">
+              <CardCurrency
+                currencyName="British Pound"
+                value={'R$ ' + this.state.pound}
+                baseCurrency="£ 1.00"
+                currencyImgSrc="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Pound_Sign.svg/768px-Pound_Sign.svg.png">
+              </CardCurrency>
+            </div>
+          </div>
+
+          <div className="section-title">
+            Historical Changes
+          </div>
+          <hr className="line"/>
+
+          <div className="chart">
+            { (this.state.dolarDone && this.state.euroDone && this.state.poundDone) ?
+            <LineChart width={700} height={300} data={this.state.data}>
+              <XAxis dataKey="name"/>
+              <YAxis/>
+              <CartesianGrid strokeDasharray="3 3"/>
+              <Tooltip/>
+              <Legend />
+              <Line type="monotone" dataKey="pound" stroke="#880000" />
+              <Line type="monotone" dataKey="euro" stroke="#82ca9d" />
+              <Line type="monotone" dataKey="dolar" stroke="#0090FF" />
+            </LineChart>
+            :
+            <div><h3>Loading...</h3></div>
+            }
+          </div>
       </div>
 
     )
